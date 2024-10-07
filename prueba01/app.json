@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ejercicio1",
-    "slug": "ejercicio1",
+    "name": "prueba01",
+    "slug": "prueba01",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,11 +22,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "32539da5-e212-4995-816d-093472cc052e"
-      }
     }
   }
 }
