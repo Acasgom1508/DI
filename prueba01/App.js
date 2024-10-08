@@ -5,7 +5,6 @@ import {
   Text,
   TextInput,
   View,
-  Button,
   TouchableOpacity,
   FlatList,
 } from "react-native";
@@ -15,14 +14,22 @@ export default function App() {
   const [lista, setLista] = useState([]); // lista de tareas
 
   const AgregaTarea = () => {
-    if (texto != "") {
-      setLista([...lista, { id: Date.now().toString(), value: texto}]);
+    if (texto !== "") {
+      setLista([{ id: Date.now().toString(), value: texto, completada: false }, ...lista]);
       setTexto("");
     } else alert("Escriba una tarea");
   };
 
-  const Eliminartarea = () => {
-    alert("tonto");
+  const AlternarCompletada = (id) => {
+    setLista(
+      lista.map((item) =>
+        item.id === id ? { ...item, completada: !item.completada } : item
+      )
+    );
+  };
+
+  const Eliminartarea = (id) => {
+    setLista(lista.filter((item) => item.id !== id));
   };
 
   return (
@@ -36,8 +43,11 @@ export default function App() {
           onChangeText={setTexto}
           onSubmitEditing={AgregaTarea}
         />
+
         <TouchableOpacity onPress={AgregaTarea} style={styles.boton}>
-          <Text style={{ marginHorizontal: 2 }}>Agregar tarea</Text>
+          <Text style={{ marginHorizontal: 2, fontSize: 25 }}>
+            Agregar tarea
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -49,7 +59,7 @@ export default function App() {
             style={{
               flex: 1,
               flexDirection: "row",
-              backgroundColor: "#222438",
+              backgroundColor: item.completada ? "#222438" : "#3d3f5a",
               borderRadius: 7,
               padding: 10,
               marginBottom: 15,
@@ -58,13 +68,24 @@ export default function App() {
               justifyContent: "space-between",
             }}
           >
-            <Text style={{ color: "#fff" }}>{item.value}</Text>
-            <TouchableOpacity onPress={Eliminartarea} style={{}}>
-              <Text style={{ color: "#ff4141", fontWeight: "bold", fontSize: 15 }}>❌Eliminar </Text>
+            <TouchableOpacity onPress={() => AlternarCompletada(item.id)}>
+              <Text style={{ fontSize: 24 }}>{item.completada ? "✅" : "✔️"}</Text>
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: item.completada ? "#888" : "#fff",
+                textDecorationLine: item.completada ? "line-through" : "none",
+                fontSize: 20,
+              }}
+            >
+              {item.value}
+            </Text>
+            <TouchableOpacity onPress={() => Eliminartarea(item.id)}>
+              <Text style={{ color: "#ff4141", fontWeight: "bold", fontSize: 20 }}>❌</Text>
             </TouchableOpacity>
           </View>
         )}
-      ></FlatList>
+      />
       <StatusBar style="light" />
     </View>
   );
@@ -88,7 +109,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "rgb(255, 255, 255)",
     borderRadius: 7,
-    fontSize: 15,
+    fontSize: 25,
     flex: 1,
     marginRight: 10,
     paddingLeft: 10,
@@ -97,7 +118,7 @@ const styles = StyleSheet.create({
 
   boton: {
     backgroundColor: "#999ef3",
-    padding: 7,
+    padding: 3,
     borderRadius: 7,
   },
 });
