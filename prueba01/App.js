@@ -59,7 +59,7 @@ export default function App() {
             style={{
               flex: 1,
               flexDirection: "row",
-              backgroundColor: item.completada ? "#222438" : "#3d3f5a",
+              backgroundColor: item.completada ? "#383a55" : "#60627e",
               borderRadius: 7,
               padding: 10,
               marginBottom: 15,
@@ -69,13 +69,14 @@ export default function App() {
             }}
           >
             <TouchableOpacity onPress={() => AlternarCompletada(item.id)}>
-              <Text style={{ fontSize: 24 }}>{item.completada ? "✅" : "✔️"}</Text>
+              <Text style={{ fontSize: 24 }}>{item.completada ? "✅" : "⬛"}</Text>
             </TouchableOpacity>
             <Text
               style={{
                 color: item.completada ? "#888" : "#fff",
                 textDecorationLine: item.completada ? "line-through" : "none",
                 fontSize: 20,
+                width: "80%"
               }}
             >
               {item.value}
@@ -94,7 +95,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#141524",
+    backgroundColor: "#23253b",
   },
 
   encabezado: {
