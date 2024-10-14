@@ -65,7 +65,7 @@ const prod = [
     precio: "1,20 €",
     imagen:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1200px-A_small_cup_of_coffee.JPG",
-  }
+  },
 ];
 
 function Principal({ navigation }) {
@@ -103,7 +103,6 @@ function PantallaDeDetalles({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: "#90DDF0",
@@ -161,8 +160,6 @@ const styles = StyleSheet.create({
       color: "#F0EDEE",
       marginBottom: 10,
     },
-  })
-  
-});
+  });
 
 export default App;
