@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
       alignItems: "center",
       backgroundColor: "#07393C",
       padding: 10,
-      paddingBottom: 25,
       borderBottomLeftRadius: 50,
       borderBottomRightRadius: 50,
       width: "100%", // O puedes usar un porcentaje si quieres restringir el ancho
