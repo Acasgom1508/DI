@@ -1,22 +1,73 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,Image, Button } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Header } from "@react-navigation/stack";
 
-export default function App() {
+const tab = createBottomTabNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <tab.Navigator initialRouteName="Bienvenida">
+        <tab.Screen name="Bienvenida" component={PantallaBienvenida} options={{headerShown: false, tabBarStyle: {display: 'none'}}}/>
+        <tab.Screen name="Principal" component={PantallaPrincipal} options={{headerShown: false}}/>
+      </tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function PantallaBienvenida({ navigation }) {
   return (
     <View style={styles.container}>
-      <Image source={require("./assets/Presentacion/foto-pagina-bienvenida.png")} style={{width: 600, height: 590, marginRight: 100}}/>
-      <Text style={{fontSize: 25, fontWeight: 'bold', paddingTop: 30}}>Track your Active Lifestyle</Text>
-      <Text style={{paddingTop: 10, fontSize: 15}}>Find your way to the perfect body</Text>
-      <Button title='Get Started'/>
-      <StatusBar style="auto" />
+      <Image
+        source={require("./assets/Presentacion/foto-pagina-bienvenida.png")}
+        style={{ width: 600, height: 590, marginRight: 100 }}
+      />
+      <Text style={{ fontSize: 25, fontWeight: "bold", paddingTop: 30 }}>
+        Track your Active Lifestyle
+      </Text>
+      <Text style={{ paddingTop: 10, fontSize: 15 }}>
+        Find your way to the perfect body
+      </Text>
+      <Image source={require("./assets/Presentacion/slider.png")} style={{marginTop: 20, width: 70, height: 30}}/>
+      <TouchableOpacity style={styles.getStarted} onPress={() => navigation.navigate('Principal')}>
+        <Text style={{ fontSize: 20, color: "#fff" }}>
+          Get Started
+        </Text>
+      </TouchableOpacity>
+      <StatusBar style='auto' />
     </View>
   );
+};
+
+function PantallaPrincipal({ navigation }) {
+  return (
+    <View style={styles.container}>
+      <Text>Pantalla Principal</Text>
+      <Button title="Ir a la pantalla de Bienvenida" onPress={() => navigation.navigate('Bienvenida')} />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
+
+  getStarted: {
+    backgroundColor: "#000000",
+    borderRadius: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 50,
+    color: "#ffffff",
+    display: "inline-block",
+    alignItems: "center",
+    marginTop: 20,
   },
 });
+
+export default App;
