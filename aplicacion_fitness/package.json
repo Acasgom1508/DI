@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-native-community/slider": "^4.5.4",
+    "@react-native-vector-icons/material-icons": "^0.0.1-alpha.32",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/drawer": "^6.7.2",
     "@react-navigation/native": "^6.1.18",

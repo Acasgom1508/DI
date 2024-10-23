@@ -1,7 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { PantallaBienvenida } from "./screens/Bienvenida";
-import { PantallaPrincipal } from "./screens/Inicio";
+import { PantallaPrincipal } from "./screens/Inicio1";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const tab = createBottomTabNavigator();
 const Stack = createBottomTabNavigator();
@@ -28,7 +29,19 @@ export default function App() {
 
 function pantallas() {
   return (
-    <tab.Navigator>
+    <tab.Navigator screenOptions={({route}) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+      
+              if (route.name === "Inicio") {
+                iconName = focused? "home" : "home-outline";
+              } else {
+                iconName = focused? "stats" : "stats-outline";
+              }
+      
+              return <MaterialIcons name={iconName} size={size} color={color} />;
+            },
+    })}>
       <tab.Screen
         name="Inicio"
         component={PantallaPrincipal}
