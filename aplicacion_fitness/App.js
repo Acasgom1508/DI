@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { PantallaBienvenida } from "./screens/Bienvenida";
 import { PantallaPrincipal } from "./screens/Inicio1";
+import { PantallaEstadisticas } from "./screens/Stats";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const tab = createBottomTabNavigator();
@@ -34,24 +35,26 @@ function pantallas() {
               let iconName;
       
               if (route.name === "Inicio") {
-                iconName = focused? "home" : "home-outline";
-              } else {
-                iconName = focused? "stats" : "stats-outline";
+                iconName = "home";
+              }
+
+              if (route.name === "Estadisticas") {
+                iconName = "insights";
               }
       
-              return <MaterialIcons name={iconName} size={size} color={color} />;
+              return <MaterialIcons name={iconName} size={size} color={color}/>;
             },
     })}>
       <tab.Screen
         name="Inicio"
         component={PantallaPrincipal}
         options={{ headerShown: false }}
-      />{/* 
+      />{ 
       <tab.Screen
         name="Estadisticas"
-        component={Stats}
+        component={PantallaEstadisticas}
         options={{ headerShown: false }}
-      /> */}
+      />}
     </tab.Navigator>
   );
 }
