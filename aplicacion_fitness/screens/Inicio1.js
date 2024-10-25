@@ -1,24 +1,31 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
-export function PantallaPrincipal({ navigation }) {
+export function PantallaPrincipal() {
   return (
-    <View style={styles.container}>
-      <Text>Pantalla Principal</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Bienvenida")}>
-      </TouchableOpacity>
+    <View style={styles.encabezado}>
+      <Text style={styles.titulo1}>Find your</Text>
+      <Text style={styles.subTitulo1}>activity</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+
+  encabezado: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+    backgroundColor: '#ffffff',
   },
+
+  titulo1: {
+    fontSize: 55,
+    marginLeft: 35,
+    marginTop: 120,
+    fontWeight: "300",
+  },
+
+  subTitulo1: {
+    fontSize: 55,
+    marginLeft: 35,
+    fontWeight: "500",
+  }
 });

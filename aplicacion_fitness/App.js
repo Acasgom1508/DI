@@ -19,42 +19,47 @@ export default function App() {
         />
         <Stack.Screen
           name="pantallas"
-          component={pantallas}
-          options={{ headerShown: false, tabBarStyle: { display: "none" }}}
+          component={Pantallas}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-
-function pantallas() {
+function Pantallas() {
   return (
-    <tab.Navigator screenOptions={({route}) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-      
-              if (route.name === "Inicio") {
-                iconName = "home";
-              }
+    <tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color }) => {
+          let iconName;
 
-              if (route.name === "Estadisticas") {
-                iconName = "insights";
-              }
-      
-              return <MaterialIcons name={iconName} size={size} color={color}/>;
-            },
-    })}>
+          if (route.name === "Inicio") {
+            iconName = "home";
+            return <MaterialIcons name={iconName} size={40} color={color} />;
+            FEATHER
+          }
+
+          if (route.name === "Estadisticas") {
+            iconName = "insights";
+            return <MaterialIcons name={iconName} size={40} color={color} />;
+          }
+        },
+        tabBarShowLabel: false,
+      })}
+    >
       <tab.Screen
         name="Inicio"
         component={PantallaPrincipal}
         options={{ headerShown: false }}
-      />{ 
-      <tab.Screen
-        name="Estadisticas"
-        component={PantallaEstadisticas}
-        options={{ headerShown: false }}
-      />}
+      />
+      {
+        <tab.Screen
+          name="Estadisticas"
+          component={PantallaEstadisticas}
+          options={{ headerShown: false }}
+        />
+      }
     </tab.Navigator>
   );
 }
