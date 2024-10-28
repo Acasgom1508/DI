@@ -47,14 +47,14 @@ function Pantallas() {
             <View
               style={{
                 backgroundColor: focused ? "black" : "transparent",
-                borderRadius: 30,
+                borderRadius: 40,
                 padding: 15,
                 margin: 2,
               }}
             >
               <Feather
                 name={iconName}
-                size={35}
+                size={30}
                 color={focused ? "white" : "grey}"}
               />
             </View>
