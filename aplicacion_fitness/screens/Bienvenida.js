@@ -19,7 +19,7 @@ export function PantallaBienvenida({ navigation }) {
       />
       <TouchableOpacity
         style={styles.getStarted}
-        onPress={() => navigation.navigate("pantallas")}
+        onPress={() => navigation.navigate("Pantallas")}
       >
         <Text style={{ fontSize: 20, color: "#fff" }}>Get Started</Text>
       </TouchableOpacity>

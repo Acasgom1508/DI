@@ -3,7 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { PantallaBienvenida } from "./screens/Bienvenida";
 import { PantallaPrincipal } from "./screens/Inicio1";
 import { PantallaEstadisticas } from "./screens/Stats";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Feather from "react-native-vector-icons/Feather";
+import { View } from "react-native";
 
 const tab = createBottomTabNavigator();
 const Stack = createBottomTabNavigator();
@@ -18,43 +19,71 @@ export default function App() {
           options={{ headerShown: false, tabBarStyle: { display: "none" } }}
         />
         <Stack.Screen
-          name="pantallas"
-          component={pantallas}
-          options={{ headerShown: false, tabBarStyle: { display: "none" }}}
+          name="Pantallas"
+          component={Pantallas}
+          options={{ headerShown: false, tabBarStyle: { display: "none" } }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-
-function pantallas() {
+function Pantallas() {
   return (
-    <tab.Navigator screenOptions={({route}) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-      
-              if (route.name === "Inicio") {
-                iconName = "home";
-              }
+    <tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => {
+          let iconName;
 
-              if (route.name === "Estadisticas") {
-                iconName = "insights";
-              }
-      
-              return <MaterialIcons name={iconName} size={size} color={color}/>;
-            },
-    })}>
+          if (route.name === "Inicio") {
+            iconName = "home";
+          }
+
+          if (route.name === "Estadisticas") {
+            iconName = "activity";
+          }
+
+          return (
+            <View
+              style={{
+                backgroundColor: focused ? "black" : "transparent",
+                borderRadius: 30,
+                padding: 15,
+                margin: 2,
+              }}
+            >
+              <Feather
+                name={iconName}
+                size={35}
+                color={focused ? "white" : "grey}"}
+              />
+            </View>
+          );
+        },
+
+        tabBarStyle: {
+          height: 80,
+          paddingBottom: 10,
+          backgroundColor: "white",
+          borderWidth: 0,
+          elevation: 0,
+        },
+
+        tabBarShowLabel: false,
+      })}
+    >
       <tab.Screen
         name="Inicio"
         component={PantallaPrincipal}
         options={{ headerShown: false }}
-      />{ 
-      <tab.Screen
-        name="Estadisticas"
-        component={PantallaEstadisticas}
-        options={{ headerShown: false }}
-      />}
+      />
+      {
+        <tab.Screen
+          name="Estadisticas"
+          component={PantallaEstadisticas}
+          options={{ headerShown: false }}
+        />
+      }
     </tab.Navigator>
   );
 }

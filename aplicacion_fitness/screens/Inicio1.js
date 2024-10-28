@@ -9,8 +9,6 @@ export function PantallaPrincipal({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>Pantalla Principal</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Bienvenida")}>
-      </TouchableOpacity>
     </View>
   );
 }
