@@ -15,7 +15,7 @@ export function PantallaBienvenida({ navigation }) {
       </Text>
       <Image
         source={require("../assets/Presentacion/slider.png")}
-        style={{ marginTop: 20, width: 70, height: 30 }}
+        style={{ marginTop: 20, width: 70, height: 30, resizeMode: "contain" }}
       />
       <TouchableOpacity
         style={styles.getStarted}
