@@ -21,11 +21,12 @@ export function PantallaEstadisticas({ navigation }) {
           source={require("../assets/Presentacion/chica.png")}
         />
 
-        <View style={{marginLeft:13, marginTop: 5}}>
-          <Text style={{fontWeight:"500", fontSize: 14}}>Adline Castelino</Text>
-          <Text style={{color:"grey", fontSize: 14}}>United States</Text>
+        <View style={{ marginLeft: 13, marginTop: 5 }}>
+          <Text style={{ fontWeight: "500", fontSize: 14 }}>
+            Adline Castelino
+          </Text>
+          <Text style={{ color: "grey", fontSize: 14 }}>United States</Text>
         </View>
-
       </View>
 
       <View style={styles.apartados}>
@@ -47,12 +48,132 @@ export function PantallaEstadisticas({ navigation }) {
       </View>
 
       <View style={styles.cabeza}>
-        <Text style={{fontWeight:"800", fontSize: 19}}>Statistics</Text>
-        <View style={{backgroundColor:"rgba(196, 196, 196, 0.2)", paddingVertical: 8, paddingHorizontal: 11}}>
-          <Text style={{}}>Week</Text>
-        </View>
+        <Text style={{ fontWeight: "800", fontSize: 19, marginTop: 5 }}>
+          Statistics
+        </Text>
+        <TouchableOpacity>
+          <View
+            style={{
+              backgroundColor: "rgba(196, 196, 196, 0.2)",
+              paddingVertical: 8,
+              paddingHorizontal: 11,
+              borderRadius: 30,
+              flexDirection: "row",
+            }}
+          >
+            <Text style={{}}>Week</Text>
+            <Feather
+              name="chevron-down"
+              size={15}
+              color="#000"
+              style={{ marginLeft: 15, marginTop: 3 }}
+            />
+          </View>
+        </TouchableOpacity>
       </View>
-      
+
+      <View style={{}}>
+        <Image
+          style={styles.barras}
+          source={require("../assets/Presentacion/barras.png")}
+        />
+      </View>
+
+      <View>
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            style={styles.iconos}
+            source={require("../assets/Presentacion/verde.png")}
+          />
+          <View
+            style={{
+              marginTop: 24,
+              marginLeft: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 18,
+              }}
+            >
+              Training
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                marginLeft: 3,
+                color: "#666",
+              }}
+            >
+              4.5 hours
+            </Text>
+          </View>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            style={styles.iconos}
+            source={require("../assets/Presentacion/rojo.png")}
+          />
+          <View
+            style={{
+              marginTop: 24,
+              marginLeft: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 18,
+              }}
+            >
+              Steps
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                marginLeft: 3,
+                color: "#666",
+              }}
+            >
+              24 km per week
+            </Text>
+          </View>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            style={styles.iconos}
+            source={require("../assets/Presentacion/azul.png")}
+          />
+          <View
+            style={{
+              marginTop: 24,
+              marginLeft: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 18,
+              }}
+            >
+              Calories
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                marginLeft: 3,
+                color: "#666",
+              }}
+            >
+              6215 calories burned
+            </Text>
+          </View>
+        </View>
+
+      </View>
     </View>
   );
 }
@@ -96,5 +217,19 @@ const styles = StyleSheet.create({
     marginRight: 30,
     marginLeft: 30,
     marginTop: 5,
-  }
+  },
+
+  barras: {
+    width: "100%",
+    height: 170,
+    marginBottom: 20,
+    resizeMode: "contain",
+    marginTop: 40,
+  },
+
+  iconos: {
+    width: 45,
+    resizeMode: "contain",
+    marginLeft: 50,
+  },
 });
