@@ -1,11 +1,68 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import React, { useRef, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Animated,
+} from "react-native";
 import Feather from "react-native-vector-icons/Feather";
+
+const FadeInView1 = (props) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1582,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
+  return (
+    <Animated.View
+      style={{
+        ...props.style,
+        opacity: fadeAnim,
+      }}
+    >
+      {props.children}
+    </Animated.View>
+  );
+};
+
+const FadeInView2 = (props) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 2375,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
+  return (
+    <Animated.View
+      style={{
+        ...props.style,
+        opacity: fadeAnim,
+      }}
+    >
+      {props.children}
+    </Animated.View>
+  );
+};
 
 export function PantallaPrincipal({ navigation }) {
   return (
     <View style={styles.encabezado}>
       <View style={styles.controles}>
-        <TouchableOpacity style={{ marginTop: 51, marginLeft: 31 }} onPress={() => navigation.navigate("Bienvenida")}>
+        <TouchableOpacity
+          style={{ marginTop: 51, marginLeft: 31 }}
+          onPress={() => navigation.navigate("Bienvenida")}
+        >
           <Feather name="chevron-left" size={35} color="#000" />
         </TouchableOpacity>
         <TouchableOpacity style={{ marginTop: 51, marginRight: 31 }}>
@@ -27,37 +84,43 @@ export function PantallaPrincipal({ navigation }) {
       </View>
 
       <View style={styles.modalidades}>
-        <Image
-          source={require("../assets/Presentacion/nadador.png")}
-          style={{ height: 150, resizeMode: "contain" }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: 10,
-            width: "75%",
-          }}
-        >
-          <Text style={{ fontWeight: "bold", fontSize: 17 }}>Swimming</Text>
-          <Text style={{fontSize: 13, color: "grey"}}>🔥430Kcal/hr</Text>
-        </View>
+        <FadeInView1 style={styles.modalidades}>
+          <Image
+            source={require("../assets/Presentacion/nadador.png")}
+            style={{ height: 150, resizeMode: "contain" }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: 10,
+              width: "75%",
+            }}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 17 }}>Swimming</Text>
+            <Text style={{ fontSize: 13, color: "grey" }}>🔥430Kcal/hr</Text>
+          </View>
+        </FadeInView1>
 
-        <Image
-          source={require("../assets/Presentacion/tenis.png")}
-          style={{ marginTop: 35, height: 150, resizeMode: "contain" }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: 10,
-            width: "75%",
-          }}
-        >
-          <Text style={{ fontWeight: "bold", fontSize: 17 }}>Playing tennis</Text>
-          <Text style={{fontSize: 13, color: "grey"}}>🔥430Kcal/hr</Text>
-        </View>
+        <FadeInView2 style={styles.modalidades}>
+          <Image
+            source={require("../assets/Presentacion/tenis.png")}
+            style={{ marginTop: 35, height: 150, resizeMode: "contain" }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: 10,
+              width: "75%",
+            }}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 17 }}>
+              Playing tennis
+            </Text>
+            <Text style={{ fontSize: 13, color: "grey" }}>🔥430Kcal/hr</Text>
+          </View>
+        </FadeInView2>
       </View>
     </View>
   );
@@ -105,5 +168,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-  }
+  },
 });
