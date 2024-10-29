@@ -65,7 +65,7 @@ function Pantallas() {
           height: 80,
           paddingBottom: 10,
           backgroundColor: "white",
-          borderWidth: 0,
+          borderTopWidth: 0,
           elevation: 0,
         },
 

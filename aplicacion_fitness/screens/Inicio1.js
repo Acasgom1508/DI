@@ -36,7 +36,6 @@ export function PantallaPrincipal({ navigation }) {
             flexDirection: "row",
             justifyContent: "space-between",
             marginTop: 10,
-            marginLeft: 185,
             width: "75%",
           }}
         >
@@ -53,7 +52,6 @@ export function PantallaPrincipal({ navigation }) {
             flexDirection: "row",
             justifyContent: "space-between",
             marginTop: 10,
-            marginLeft: 185,
             width: "75%",
           }}
         >
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
   },
 
   modalidades: {
-    alignSelf: "center",
+    alignItems: "center",
   },
 
   controles: {
