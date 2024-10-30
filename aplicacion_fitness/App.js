@@ -12,7 +12,7 @@ const Stack = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Bienvenida">
+      <Stack.Navigator initialkdkRouteName="Bienvenida">
         <Stack.Screen
           name="Bienvenida"
           component={PantallaBienvenida}
