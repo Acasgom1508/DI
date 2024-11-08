@@ -10,9 +10,17 @@ import {
 } from "react-native";
 import axios from "axios";
 import Feather from "react-native-vector-icons/Feather";
+import Modal from "react-native-modal";
+
 export default function App() {
   const [clima, setClima] = useState(null);
   const [provincia, setProvincia] = useState("");
+  const [isModalVisible, setisModalVisible] = useState(false);
+
+  // Función para alternar la visibilidad del modal
+  const toggleModal = () => {
+    setisModalVisible(!isModalVisible);
+  };
 
   const URL = "https://www.el-tiempo.net/api/json/v2/provincias/";
   const provincias = {
@@ -26,10 +34,12 @@ export default function App() {
     sevilla: "41",
   };
 
+  // Eliminar tildes del texto
   const quitarTildes = (texto) => {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   };
 
+  // Obtener datos del clima
   const obtenerDatos = async () => {
     const codigoProv = provincias[quitarTildes(provincia.trim().toLowerCase())];
     if (!codigoProv) {
@@ -38,10 +48,11 @@ export default function App() {
     }
     try {
       const response = await axios.get(`${URL}${codigoProv}`);
-      console.log(response.data);
       setClima(response.data);
+      toggleModal(); // Mostrar el modal después de obtener los datos
     } catch (error) {
       console.error("Error:", error);
+      Alert.alert("Error al obtener los datos");
     }
   };
 
@@ -62,19 +73,32 @@ export default function App() {
           <Feather name="search" size={30} color="white" />
         </TouchableOpacity>
       </View>
+
       {clima && (
-        <View style={styles.info}>
-          <Text style={styles.textoInformacion}>
-            Condiciones meteorológicas hoy: {clima.today.p}
-          </Text>
-          <Text style={styles.textoInformacion}>
-            Temperatura máxima: {clima.ciudades[0].temperatures.max}°C
-          </Text>
-          <Text style={styles.textoInformacion}>
-            Temperatura mínima: {clima.ciudades[0].temperatures.min}°C
-          </Text>
-        </View>
+        <Modal
+          isVisible={isModalVisible}
+          onBackdropPress={toggleModal}
+          style={{ justifyContent: "center", alignItems: "center" }}
+        >
+          <View style={styles.info}>
+            <Text style={styles.textoInformacion2}>Condiciones</Text>
+            <Text style={styles.textoInformacion}>
+              {clima.today.p}
+            </Text>
+            <Text style={styles.textoInformacion}>
+              Temperatura máxima: {clima.ciudades[0].temperatures.max}°C
+            </Text>
+            <Text style={styles.textoInformacion}>
+              Temperatura mínima: {clima.ciudades[0].temperatures.min}°C
+            </Text>
+
+            <TouchableOpacity onPress={toggleModal} style={styles.cerrarBoton}>
+              <Text style={{ color: "white", fontSize: 17 }}>Cerrar</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       )}
+
       <StatusBar style="auto" />
     </View>
   );
@@ -86,11 +110,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#b8def8",
     alignItems: "center",
     justifyContent: "center",
-  },
-
-  imagen: {
-    position: "absolute",
-    top: -75,
   },
 
   pedir: {
@@ -128,12 +147,25 @@ const styles = StyleSheet.create({
     width: "90%",
     backgroundColor: "white",
     borderRadius: 20,
-    marginTop: 10,
     alignItems: "center",
   },
 
   textoInformacion: {
     fontSize: 20,
     marginBottom: 5,
+  },
+
+  textoInformacion2: {
+    fontSize: 28,
+    marginBottom: 5,
+    fontWeight: "bold",
+  },
+
+  cerrarBoton: {
+    backgroundColor: "rgb(124, 26, 26)",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 20,
   },
 });
