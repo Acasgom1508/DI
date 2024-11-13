@@ -1,5 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  username: yup.string().required('Nombre de usuario es requerido'),
+  email: yup.string().email('Email no válido').required('Email es requerido'),
+  password: yup.string().min(6, 'La contraseña debe tener al menos 6 caracteres').required('Contraseña es requerida'),
+});
 
 export default function App() {
   return (
@@ -44,7 +53,7 @@ const styles = StyleSheet.create({
   form: {
     width: "400",
     padding: 7,
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
 
   formText: {
