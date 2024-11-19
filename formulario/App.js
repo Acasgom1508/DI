@@ -4,7 +4,6 @@ import { Formik } from "formik";
 import { Picker } from "@react-native-picker/picker";
 import * as yup from "yup";
 
-
 const schema = yup.object().shape({
   username: yup.string().required("Nombre de usuario es requerido"),
   email: yup.string().email("Email no válido").required("Email es requerido"),
@@ -34,7 +33,28 @@ const schema = yup.object().shape({
       
       return age >= 18;
     }),
+  country: yup.string().required("País es requerido"),
 });
+
+const countries = [
+  "Argentina",
+  "Brasil",
+  "Canadá",
+  "Chile",
+  "China",
+  "Colombia",
+  "España",
+  "Estados Unidos",
+  "Francia",
+  "Italia",
+  "Japón",
+  "México",
+  "Perú",
+  "Portugal",
+  "Reino Unido",
+  "Uruguay",
+  "Venezuela"
+].sort();
 
 const months = [
   "January",
@@ -69,6 +89,7 @@ export default function App() {
         day: "",
         month: "",
         year: "",
+        country: "",
       }}
       validationSchema={schema}
       onSubmit={(values) => {
@@ -126,24 +147,9 @@ export default function App() {
               )}
             </View>
 
-            {/* <View style={styles.form}>
-              <Text style={styles.formText}>Confirm password:</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password2}
-                secureTextEntry={true}
-              />
-              {errors.password && (
-                <Text style={styles.error}>{errors.password}</Text>
-              )}
-            </View> */}
-
             <View style={styles.form}>
               <Text style={styles.formText}>Date of birth:</Text>
               <View style={styles.datePickersContainer}>
-                {/* Picker de Día */}
                 <View style={[styles.pickerContainer, styles.datePickerItem]}>
                   <Picker
                     style={styles.picker}
@@ -206,6 +212,28 @@ export default function App() {
                 {errors.year && <Text style={styles.error}>{errors.year}</Text>}
               </View>
             </View>
+
+            <View style={styles.form}>
+              <Text style={styles.formText}>Country:</Text>
+              <View style={[styles.pickerContainer, styles.countryPickerContainer]}>
+                <Picker
+                  style={styles.picker}
+                  selectedValue={values.country}
+                  onValueChange={(itemValue) =>
+                    setFieldValue("country", itemValue)
+                  }
+                >
+                  <Picker.Item label="Select a country" value="" />
+                  {countries.map((country) => (
+                    <Picker.Item key={country} label={country} value={country} />
+                  ))}
+                </Picker>
+              </View>
+              {errors.country && (
+                <Text style={styles.error}>{errors.country}</Text>
+              )}
+            </View>
+
           </View>
           <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
             <Text style={{fontSize: 16, fontWeight: "bold", color: "#0c3c5d", textAlign: "center"}}>Sign Up</Text>
@@ -267,10 +295,25 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 
+  countryPickerContainer: {
+    marginTop: 10,
+    width: "100%",
+  },
+
   picker: {
     width: "100%",
     height: 50,
     backgroundColor: "transparent",
+  },
+
+  datePickersContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  datePickerItem: {
+    flex: 1,
+    marginHorizontal: 5,
   },
 
   boton: {
