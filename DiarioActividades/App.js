@@ -1,10 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import {FIREBASE_APP, FIREBASE_AUTH, FIRESTORE_DB} from './firebaseConfig'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text style={styles.texto}>Inicio de sesión</Text>
+      <TextInput placeholder="Usuario" style={styles.placeholder}/>
+      <TextInput placeholder="Contraseña" style={styles.placeholder} secureTextEntry/>
+      <TouchableOpacity style={styles.boton}>
+        <Text style={styles.botonText}>Ingresar</Text>
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
@@ -17,26 +23,56 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  texto: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    fontFamily: 'Arial',
+    lineHeight: 32,
+    letterSpacing: 0.5,
+    marginBottom: 30,
+  },
+
+
+  placeholder: {
+    width: 300,
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#000',
+    padding: 10,
+    marginBottom: 20,
+    borderRadius: 5,
+    backgroundColor: '#f2f2f2',
+    fontSize: 18,
+    color: '#000',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    elevation: 5,
+    fontFamily: 'Arial',
+    lineHeight: 24,
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
+
+  boton: {
+    backgroundColor: '#2196F3',
+    width: 150,
+    height: 50,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  botonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    fontFamily: 'Arial',
+    lineHeight: 24,
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  }
 });
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAIl6MCcoQGtX9DfTaYXCeUEbEmQ-ITdt8",
-  authDomain: "diarioactividades-d9767.firebaseapp.com",
-  projectId: "diarioactividades-d9767",
-  storageBucket: "diarioactividades-d9767.firebasestorage.app",
-  messagingSenderId: "457016799490",
-  appId: "1:457016799490:web:ae55c40bdd17fdda53121b",
-  measurementId: "G-T40DYKHE8H"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
