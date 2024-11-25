@@ -1,5 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { Formik } from "formik";
 import { Picker } from "@react-native-picker/picker";
 import * as yup from "yup";
@@ -13,24 +19,29 @@ const schema = yup.object().shape({
     .required("Contraseña es requerida"),
   day: yup.string().required("Día es requerido"),
   month: yup.string().required("Mes es requerido"),
-  year: yup.string().required("Año es requerido")
-    .test("age", "Debes ser mayor de 18 años", function(value) {
+  year: yup
+    .string()
+    .required("Año es requerido")
+    .test("age", "Debes ser mayor de 18 años", function (value) {
       if (!value) return false;
-      
+
       const birthDate = new Date(
         parseInt(value),
         parseInt(this.parent.month) - 1,
         parseInt(this.parent.day)
       );
-      
+
       const today = new Date();
       const age = today.getFullYear() - birthDate.getFullYear();
       const monthDiff = today.getMonth() - birthDate.getMonth();
-      
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < birthDate.getDate())
+      ) {
         return age - 1 >= 18;
       }
-      
+
       return age >= 18;
     }),
   country: yup.string().required("País es requerido"),
@@ -53,7 +64,7 @@ const countries = [
   "Portugal",
   "Reino Unido",
   "Uruguay",
-  "Venezuela"
+  "Venezuela",
 ].sort();
 
 const months = [
@@ -108,7 +119,6 @@ export default function App() {
           <Text style={styles.header}>Create your account</Text>
           <StatusBar style="auto" />
           <View style={styles.bigForm}>
-
             <View style={styles.form}>
               <Text style={styles.formText}>Username:</Text>
               <TextInput
@@ -215,7 +225,9 @@ export default function App() {
 
             <View style={styles.form}>
               <Text style={styles.formText}>Country:</Text>
-              <View style={[styles.pickerContainer, styles.countryPickerContainer]}>
+              <View
+                style={[styles.pickerContainer, styles.countryPickerContainer]}
+              >
                 <Picker
                   style={styles.picker}
                   selectedValue={values.country}
@@ -225,7 +237,11 @@ export default function App() {
                 >
                   <Picker.Item label="Select a country" value="" />
                   {countries.map((country) => (
-                    <Picker.Item key={country} label={country} value={country} />
+                    <Picker.Item
+                      key={country}
+                      label={country}
+                      value={country}
+                    />
                   ))}
                 </Picker>
               </View>
@@ -233,10 +249,18 @@ export default function App() {
                 <Text style={styles.error}>{errors.country}</Text>
               )}
             </View>
-
           </View>
           <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-            <Text style={{fontSize: 16, fontWeight: "bold", color: "#0c3c5d", textAlign: "center"}}>Sign Up</Text>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "#0c3c5d",
+                textAlign: "center",
+              }}
+            >
+              Sign Up
+            </Text>
           </TouchableOpacity>
         </View>
       )}
