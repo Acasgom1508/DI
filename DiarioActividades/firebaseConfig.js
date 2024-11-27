@@ -2,13 +2,14 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDJA__-jLG6nTo5Zaph748WdrL6OYHLVpU",
-  authDomain: "diarioactividades1.firebaseapp.com",
-  projectId: "diarioactividades1",
-  storageBucket: "diarioactividades1.firebasestorage.app",
-  messagingSenderId: "616896650813",
-  appId: "1:616896650813:web:7e0546ee3dc4a63d7d9454",
+  apiKey: "AIzaSyCX9Hrjy3-uuK42Wz83wf04pGnh9kCj6oE",
+  authDomain: "diarioactividades-1189d.firebaseapp.com",
+  projectId: "diarioactividades-1189d",
+  storageBucket: "diarioactividades-1189d.firebasestorage.app",
+  messagingSenderId: "114906244830",
+  appId: "1:114906244830:web:b4821d9e8e4f2e71d0444f",
 };
 
 // Initialize Firebase
