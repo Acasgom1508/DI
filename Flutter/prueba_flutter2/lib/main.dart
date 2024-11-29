@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+int dias = 135;
+
 void main() {
   runApp(const MainApp());
 }
@@ -9,12 +11,20 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Fibonacci😢'),
+        ),
         body: Center(
-          child: Text('Hello World!'),
+          child: Text(
+            'Han pasado $dias días',
+            style: const TextStyle(fontSize: 24),
+          ),
         ),
       ),
     );
   }
 }
+
+
