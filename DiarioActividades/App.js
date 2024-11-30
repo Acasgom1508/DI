@@ -15,8 +15,22 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Inicio Sesión">
+        <Stack.Screen name="Inicio Sesión" component={InicioSesion} />
+        <Stack.Screen name="Actividades" component={Actividades} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function InicioSesion({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
@@ -65,10 +79,8 @@ export default function App() {
 
       // Añadir usuario a Firestore
       await addDoc(usuariosRef, {
-        uid: userCredential.user.uid,
-        username: username,
+        nombre: username,
         email: email,
-        fechaRegistro: new Date(),
       });
 
       Alert.alert("Éxito", "Usuario registrado correctamente");
@@ -98,27 +110,14 @@ export default function App() {
 
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
-        Alert.alert("Bienvenido", `Hola ${userData.username}`);
+        Alert.alert("Bienvenido", `Hola ${userData.nombre}`);
       } else {
         Alert.alert("Bienvenido", `Hola ${loginEmail}`);
       }
+
+      navigation.navigate("Actividades");
     } catch (error) {
-      if (error.code === "auth/user-not-found") {
-        Alert.alert("Usuario no encontrado", "¿Desea registrarse?", [
-          {
-            text: "Cancelar",
-            style: "cancel",
-          },
-          {
-            text: "Registrarse",
-            onPress: abrirModal,
-          },
-        ]);
-      } else if (error.code === "auth/wrong-password") {
-        Alert.alert("Error", "Contraseña incorrecta. Intente nuevamente.");
-      } else {
-        Alert.alert("Error de Inicio de Sesión", error.message);
-      }
+      Alert.alert("Datos incorrectos", "Error: " + error.message);
     }
   };
 
@@ -194,6 +193,102 @@ export default function App() {
       </Modal>
 
       <StatusBar style="auto" />
+    </View>
+  );
+}
+
+function Actividades() {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [titulo, setTitulo] = useState();
+  const [desc, setDesc] = useState();
+  const [fecha, setFecha] = useState();
+
+  const abrirModal = () => {
+    setModalVisible(true);
+  };
+
+  const cerrarModal = () => {
+    setModalVisible(false);
+  };
+
+  const registrarActividad = async () => {
+    if (!titulo || !desc || !fecha) {
+      Alert.alert("Error", "Por favor, complete todos los campos");
+      return;
+    }
+
+    try {
+      // Referencia a la colección
+      const actividadesRef = collection(FIRESTORE_DB, "actividades");
+
+      // Verifica si la actividad ya existe (opcional)
+      const q = query(actividadesRef, where("titulo", "==", titulo));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        Alert.alert("Error", "La actividad ya existe");
+        return;
+      }
+
+      // Añadir nueva actividad
+      await addDoc(actividadesRef, {
+        descripcion: desc,
+        fecha: fecha,
+        titulo: titulo,
+      });
+
+      Alert.alert("Éxito", "Actividad agregada correctamente");
+      cerrarModal(); // Cierra el modal después de guardar
+    } catch (error) {
+      Alert.alert("Error al agregar actividad", error.message);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.texto}>Actividades</Text>
+      <TouchableOpacity
+        style={styles.boton}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.botonText}>Agregar Actividad</Text>
+      </TouchableOpacity>
+      <Modal transparent={true} visible={isModalVisible} animationType="slide">
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitulo}>Agregar Actividad</Text>
+            <TextInput
+              placeholder="Titulo"
+              style={styles.modalInput}
+              onChangeText={setTitulo}
+            />
+            <TextInput
+              placeholder="Descripción"
+              style={styles.modalInput}
+              onChangeText={setDesc}
+            />
+            <TextInput
+              placeholder="Fecha(DD/MM/YYYY)"
+              style={styles.modalInput}
+              onChangeText={setFecha}
+            />
+            <View style={styles.modalButtonContainer}>
+              <TouchableOpacity
+                style={styles.botonModalAgregar}
+                onPress={registrarActividad}
+              >
+                <Text style={styles.botonModalTexto}>Guardar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.botonModalCancelar}
+                onPress={cerrarModal}
+              >
+                <Text style={styles.botonModalTexto}>Cerrar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -300,6 +395,19 @@ const styles = StyleSheet.create({
     width: "48%",
     alignItems: "center",
   },
+  modalButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginTop: 10,
+  },
+  botonModalAgregar: {
+    backgroundColor: "#2196F3",
+    padding: 10,
+    borderRadius: 5,
+    width: "48%",
+    alignItems: "center",
+  },
   botonModalCancelar: {
     backgroundColor: "#f44336",
     padding: 10,
@@ -312,3 +420,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+export default App;
